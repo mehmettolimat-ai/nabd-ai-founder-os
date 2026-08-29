@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NABD AI — Founder Decision System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand-wrap">
+        <div class="brand-mark">N</div>
+        <div>
+          <div class="brand-title">NABD AI</div>
+          <div class="brand-subtitle">Founder Decision System</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-link active" data-tab="dashboard">Dashboard</button>
+        <button class="nav-link" data-tab="ideas">Ideas</button>
+        <button class="nav-link" data-tab="analysis">Analysis</button>
+        <button class="nav-link" data-tab="decisions">Decision Log</button>
+        <button class="nav-link" data-tab="validation">Validation</button>
+        <button class="nav-link" data-tab="actions">Action Plan</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="mini-label">Vision</div>
+        <p>Build from evidence, not excitement.</p>
+      </div>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <div>
+          <h1>NABD AI</h1>
+          <p>Private founder workspace to capture ideas, stress-test them, and decide what to build next.</p>
+        </div>
+        <div class="topbar-actions">
+          <button id="themeToggle" class="ghost-btn">Toggle Theme</button>
+          <button id="quickAddIdea" class="primary-btn">+ New Idea</button>
+        </div>
+      </header>
+
+      <section id="dashboard" class="tab-panel active">
+        <div class="hero-card">
+          <div>
+            <div class="eyebrow">NABD AI • Strategic Workspace</div>
+            <h2>Turn ideas into decisions.</h2>
+            <p>Track opportunities, compare sectors, record why you proceed or kill an idea, and keep validation evidence in one place.</p>
+          </div>
+          <div class="hero-badge">Private Use</div>
+        </div>
+
+        <div class="stats-grid" id="statsGrid"></div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <h3>Current Focus</h3>
+              <span class="pill">Live</span>
+            </div>
+            <div id="currentFocus"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Recent Decisions</h3>
+              <span class="pill neutral">Log</span>
+            </div>
+            <div id="recentDecisions"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="ideas" class="tab-panel">
+        <div class="section-header">
+          <div>
+            <h2>Ideas</h2>
+            <p>Capture venture ideas and keep their status visible.</p>
+          </div>
+          <button class="primary-btn" id="openIdeaModal">+ Add Idea</button>
+        </div>
+        <div id="ideasList" class="cards-list"></div>
+      </section>
+
+      <section id="analysis" class="tab-panel">
+        <div class="section-header">
+          <div>
+            <h2>Analysis</h2>
+            <p>Score each idea using your core filters.</p>
+          </div>
+        </div>
+        <div class="card form-card">
+          <div class="form-grid">
+            <div class="field full">
+              <label>Idea</label>
+              <select id="analysisIdea"></select>
+            </div>
+            <div class="slider-field">
+              <label>Pain <span id="painVal">8</span></label>
+              <input type="range" id="pain" min="1" max="10" value="8">
+            </div>
+            <div class="slider-field">
+              <label>ROI <span id="roiVal">8</span></label>
+              <input type="range" id="roi" min="1" max="10" value="8">
+            </div>
+            <div class="slider-field">
+              <label>Ease of Sale <span id="saleVal">7</span></label>
+              <input type="range" id="sale" min="1" max="10" value="7">
+            </div>
+            <div class="slider-field">
+              <label>Competition Advantage <span id="competitionVal">6</span></label>
+              <input type="range" id="competition" min="1" max="10" value="6">
+            </div>
+            <div class="slider-field">
+              <label>MVP Simplicity <span id="mvpVal">7</span></label>
+              <input type="range" id="mvp" min="1" max="10" value="7">
+            </div>
+            <div class="slider-field">
+              <label>Scalability <span id="scaleVal">9</span></label>
+              <input type="range" id="scale" min="1" max="10" value="9">
+            </div>
+            <div class="field full">
+              <label>Analysis Notes</label>
+              <textarea id="analysisNotes" rows="4" placeholder="Why this score? What did you notice?"></textarea>
+            </div>
+          </div>
+          <div class="actions-row">
+            <button class="primary-btn" id="saveAnalysis">Save Analysis</button>
+            <div id="analysisScoreBox" class="score-box">No score saved yet</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="decisions" class="tab-panel">
+        <div class="section-header">
+          <div>
+            <h2>Decision Log</h2>
+            <p>Record what you decided and why.</p>
+          </div>
+        </div>
+        <div class="card form-card">
+          <div class="form-grid">
+            <div class="field">
+              <label>Idea</label>
+              <select id="decisionIdea"></select>
+            </div>
+            <div class="field">
+              <label>Decision</label>
+              <select id="decisionType">
+                <option>Proceed</option>
+                <option>Hold</option>
+                <option>Pivot</option>
+                <option>Kill</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label>Reason</label>
+              <textarea id="decisionReason" rows="4" placeholder="Why did you take this decision?"></textarea>
+            </div>
+          </div>
+          <div class="actions-row">
+            <button class="primary-btn" id="addDecisionBtn">Add Decision</button>
+          </div>
+        </div>
+        <div id="decisionList" class="timeline-list"></div>
+      </section>
+
+      <section id="validation" class="tab-panel">
+        <div class="section-header">
+          <div>
+            <h2>Validation</h2>
+            <p>Turn outreach and demo signals into a decision-friendly summary.</p>
+          </div>
+        </div>
+        <div class="card form-card">
+          <div class="form-grid">
+            <div class="field full">
+              <label>Idea</label>
+              <select id="validationIdea"></select>
+            </div>
+            <div class="field">
+              <label>Prospects Contacted</label>
+              <input id="contacted" type="number" min="0" value="20" />
+            </div>
+            <div class="field">
+              <label>Replies</label>
+              <input id="replies" type="number" min="0" value="5" />
+            </div>
+            <div class="field">
+              <label>Demo Requests</label>
+              <input id="demos" type="number" min="0" value="2" />
+            </div>
+            <div class="field">
+              <label>Pilot Interest</label>
+              <input id="pilots" type="number" min="0" value="1" />
+            </div>
+          </div>
+          <div class="actions-row">
+            <button class="primary-btn" id="calcValidation">Calculate Signal</button>
+            <div id="validationResult" class="score-box">No validation summary yet</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="actions" class="tab-panel">
+        <div class="section-header">
+          <div>
+            <h2>Action Plan</h2>
+            <p>Keep the next move visible for every idea.</p>
+          </div>
+        </div>
+        <div id="actionsList" class="cards-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="ideaModal" class="modal">
+    <form method="dialog" id="ideaForm" class="modal-card">
+      <div class="modal-header">
+        <div>
+          <div class="eyebrow">NABD AI</div>
+          <h3>Add New Idea</h3>
+        </div>
+        <button type="button" id="closeIdeaModal" class="icon-btn">×</button>
+      </div>
+      <div class="form-grid">
+        <div class="field full">
+          <label>Idea Name</label>
+          <input id="ideaName" required placeholder="e.g. AutoRevenue" />
+        </div>
+        <div class="field full">
+          <label>Target Market</label>
+          <input id="ideaMarket" placeholder="e.g. UAE Automotive" />
+        </div>
+        <div class="field full">
+          <label>Problem / Opportunity</label>
+          <textarea id="ideaProblem" rows="4" placeholder="Describe the main pain or opportunity."></textarea>
+        </div>
+        <div class="field">
+          <label>Status</label>
+          <select id="ideaStatus">
+            <option>New</option>
+            <option>Research</option>
+            <option>Validation</option>
+            <option>On Hold</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Next Action</label>
+          <input id="ideaNextAction" placeholder="e.g. Prepare outreach" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancelIdeaModal" class="ghost-btn">Cancel</button>
+        <button type="submit" class="primary-btn">Create Idea</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
