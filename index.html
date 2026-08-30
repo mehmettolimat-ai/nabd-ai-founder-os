@@ -10,7 +10,24 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="app-shell">
+  <div id="authGate" class="auth-gate">
+    <div class="auth-card">
+      <div class="brand-mark auth-mark">N</div>
+      <div class="eyebrow">NABD AI</div>
+      <h1>Founder Decision System</h1>
+      <p>Sign in to your private workspace.</p>
+      <form id="loginForm" class="auth-form">
+        <label>Email</label>
+        <input id="loginEmail" type="email" autocomplete="email" required placeholder="you@example.com" />
+        <label>Password</label>
+        <input id="loginPassword" type="password" autocomplete="current-password" required placeholder="••••••••" />
+        <button id="loginBtn" class="primary-btn" type="submit">Sign in</button>
+        <div id="loginMessage" class="auth-message" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="appShell" class="app-shell app-hidden">
     <aside class="sidebar">
       <div class="brand-wrap">
         <div class="brand-mark">N</div>
@@ -42,7 +59,9 @@
           <p>Private founder workspace to capture ideas, stress-test them, and decide what to build next.</p>
         </div>
         <div class="topbar-actions">
+          <span id="userEmail" class="user-chip"></span>
           <button id="themeToggle" class="ghost-btn">Toggle Theme</button>
+          <button id="logoutBtn" class="ghost-btn">Logout</button>
           <button id="quickAddIdea" class="primary-btn">+ New Idea</button>
         </div>
       </header>
@@ -264,6 +283,7 @@
     </form>
   </dialog>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="app.js"></script>
 </body>
 </html>
